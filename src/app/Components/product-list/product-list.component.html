@@ -1,0 +1,7 @@
+<div class="container">
+    <div class="row g-5 my-2">
+    <div class="col-lg-4 col-md-6" *ngFor="let product of products;let i= index">
+        <app-product (msg)="AddProductMsg()" [product]="product"></app-product>
+    </div>
+</div>
+</div>

@@ -1,0 +1,82 @@
+<div *ngIf="cart?.length>0" class="container my-3">
+    <div class="row">
+        <div class="col-12" *ngFor="let item of cart;let i = index">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <div>
+                        <img width="150" height="150" src={{item.Specification.url}} alt="">
+                    </div>
+                    <div class="ps-2">
+                        <h3>{{item.Specification.name}}</h3>
+                        <h6 class="my-1">Price : {{item.Specification.price|currency}}</h6>
+                        <h6 class="my-1">Quantity :
+                            <select [(ngModel)]="item.quantity" (ngModelChange)="change(item.quantity,item.Specification,i)">
+                                <option class="text-center" *ngFor="let q of quantity ,let i = index" [value]="i + 1"
+                                    [selected]="item.quantity == i + 1">{{q}}
+                                </option>
+                            </select>
+                        </h6>
+                        <h6 class="my-1">Total price = {{item.Specification.price*item.quantity|currency}}</h6>
+                    </div>
+                </div>
+                <div class="my-1">
+                    <button class="btn btn-danger" (click)="Delete(i)"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <div *ngIf="cart.length>0">
+            <div class="d-flex justify-content-between align-items-center alert alert-success mt-3">
+                <h3 class="m-0">Total Price : {{totalPrice|currency}}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div>
+            <form [formGroup]="paymentForm">
+                <mat-form-field class="w-100">
+                    <mat-label>Full name</mat-label>
+                    <input formControlName="fullName" matInput>
+                </mat-form-field>
+                <p class="my-1 p-1 rounded alert alert-danger"
+                    *ngIf="paymentForm.get('fullName')?.getError('required')&&paymentForm.get('fullName')?.touched">Full
+                    name is required</p>
+                <p class="my-1 p-1 rounded alert alert-danger"
+                    *ngIf="paymentForm.get('fullName')?.getError('mixlength')&&paymentForm.get('fullName')?.touched">Max
+                    length is 20</p>
+                <p class="my-1 p-1 rounded alert alert-danger"
+                    *ngIf="paymentForm.get('fullName')?.getError('minlength')&&paymentForm.get('fullName')?.touched">Min
+                    length is 3 </p>
+                <mat-form-field class="w-100">
+                    <mat-label>Address</mat-label>
+                    <input formControlName="address" matInput>
+                </mat-form-field>
+                <p class="my-1 p-1 rounded alert alert-danger"
+                    *ngIf="paymentForm.get('address')?.getError('required')&&paymentForm.get('address')?.touched">
+                    Address is required</p>
+                <p class="my-1 p-1 rounded alert alert-danger"
+                    *ngIf="paymentForm.get('address')?.getError('mixlength')&&paymentForm.get('address')?.touched">Max
+                    length is 30</p>
+                <p class="my-1 p-1 rounded alert alert-danger"
+                    *ngIf="paymentForm.get('address')?.getError('minlength')&&paymentForm.get('address')?.touched">Min
+                    length is 6 </p>
+                <mat-form-field class="w-100">
+                    <mat-label>Credit card number</mat-label>
+                    <input formControlName="cardNumber" matInput>
+                </mat-form-field>
+                <p class="my-1 p-1 rounded alert alert-danger"
+                    *ngIf="paymentForm.get('cardNumber')?.getError('required')&&paymentForm.get('cardNumber')?.touched">
+                    Credit card number is required</p>
+                <p class="my-1 p-1 rounded alert alert-danger"
+                    *ngIf="paymentForm.get('cardNumber')?.getError('pattern')&&paymentForm.get('cardNumber')?.touched">
+                    Credit card number length should be 16 digits</p>
+                <p>We'll never share your payment details with anyone else.</p>
+                <button [disabled]="paymentForm.status=='INVALID'" (click)="submit()"
+                    class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div *ngIf="cart.length==0" class="text-center">
+    <img class="w-100 h-100" src="assets/imgs/1.png" alt="">
+</div>

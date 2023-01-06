@@ -1,0 +1,15 @@
+::ng-deep .mat-focused .mat-form-field-label {
+    color: red !important;
+}
+::ng-deep.mat-form-field-underline {
+    background-color: black !important;
+}
+::ng-deep.mat-form-field-ripple {
+    background-color: red !important;
+}
+::ng-deep .mat-form-field-label {
+    color: black !important;
+}
+img{
+    max-width: 800px;
+}

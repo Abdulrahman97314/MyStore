@@ -1,0 +1,27 @@
+<div class="container mt-5" >
+    <div class="row gyn-5 align-items-center">
+        <div class="offset-md-2 col-md-4">
+            <div>
+                <img class="rounded-4 w-100" src={{product.url}} alt="">
+            </div>
+        </div>
+        <div class="offset-md-1 col-md-5">
+            <div>
+                <h1>{{product.name}}</h1>
+                <h5 class="my-2">{{product.price|currency}}</h5>
+                <h5 class="my-2">{{product.description}}</h5>
+                <div class="d-inline-block ">
+                    <select class="form-select" [(ngModel)]="number" (ngModelChange)="addedQuantity(number)">
+                        <option class="text-center" *ngFor="let q of quantity ,let i = index" [value]="i + 1"
+                            [selected]="product.quantity == i + 1">{{q}}
+                        </option>
+                    </select>
+                    <div class="my-2">
+                    <button (click)="AddToCart(product)" type="button" class="btn btn-primary">Add to cart</button>
+                </div>
+                </div>
+            </div>
+            <a class="text-primary" routerLink="/myStore"> <i class="fa-solid fa-arrow-left"></i> Back to product list</a>
+        </div>
+    </div>   
+</div>
